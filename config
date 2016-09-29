@@ -4,9 +4,11 @@ Host banterbox-II
 Host cube
     HostName cube.netsoc.tcd.ie
     User maki
+    IdentityFile /Users/maki/.ssh/id_netsoc
 Host spoon
     HostName spoon.netsoc.tcd.ie
     User maki
+    IdentityFile /Users/maki/.ssh/id_netsoc
 Host macneill
     HostName macneill.scss.tcd.ie
     User gradecam
