@@ -1,3 +1,5 @@
 [user]
 	name = Marijan Gradecak
 	email = gradecam@tcd.ie
+[push]
+	default = simple
