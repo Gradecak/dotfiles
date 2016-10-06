@@ -55,3 +55,5 @@ set shiftwidth=4               " when indenting with > user 4 spaces
 set expandtab                  " on tab -> insert 4 spaces
 
 set laststatus=2               " Make ariline appear
+map <c-n>:NERDTreeToggle<CR> " Nerd tree open - CTRL-N
+
