@@ -3,3 +3,5 @@
 	email = gradecam@tcd.ie
 [push]
 	default = simple
+[credential]
+	helper = osxkeychain
