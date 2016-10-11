@@ -13,3 +13,6 @@ Host spoon
 Host macneill
     HostName macneill.scss.tcd.ie
     User gradecam
+Host nebula
+  HostName 10.62.0.71
+  user root
