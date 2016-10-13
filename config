@@ -13,6 +13,9 @@ Host spoon
 Host macneill
     HostName macneill.scss.tcd.ie
     User gradecam
+    IdentityFile /Users/maki/.ssh/id_rsa
 Host nebula
-  HostName 10.62.0.71
-  user root
+    HostName 10.62.0.71
+    ProxyCommand ssh macneill nc %h %p
+    user maki
+    IdentityFile /Users/maki/.ssh/id_rsa
