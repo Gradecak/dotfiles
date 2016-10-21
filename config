@@ -20,6 +20,7 @@ Host nebula
     user maki
     IdentityFile /Users/maki/.ssh/id_rsa
 Host nebula-slave
-     HostName 10.62.0.104
-     ProxyCommand ssh macneill nc %h %p
-     user root
+    HostName 10.62.0.104
+    ProxyCommand ssh macneill nc %h %p
+    user maki
+    IdentityFile /Users/maki/.ssh/id_rsa
