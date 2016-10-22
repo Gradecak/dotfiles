@@ -316,6 +316,8 @@ you should place your code here."
   ;; "Neo-tree (Nerd tree) set theme"
   (setq neo-theme 'nerd)
   (add-hook 'sh-mode-hook (lambda () (sh-electric-here-document-mode -1)))
+  ;; set how long it takes for flycheck to dissapear
+  (setq flycheck-pos-tip-timeout 500)
 
   (defun my-setup-indent (n)
     ;; java/c/c++
