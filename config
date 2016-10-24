@@ -15,7 +15,7 @@ Host macneill
     User gradecam
     IdentityFile /Users/maki/.ssh/id_rsa
 Host nebula
-    HostName 10.62.0.71
+    HostName 10.62.0.104
     ProxyCommand ssh macneill nc %h %p
     user maki
     IdentityFile /Users/maki/.ssh/id_rsa
@@ -24,3 +24,8 @@ Host nebula-slave
     ProxyCommand ssh macneill nc %h %p
     user maki
     IdentityFile /Users/maki/.ssh/id_rsa
+Host boot2docker
+     HostName 10.62.0.31
+     ProxyCommand ssh nebula nc %h %p
+     user maki
+     IdentityFile /Users/maki/.ssh/id_rsa
