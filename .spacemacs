@@ -320,7 +320,6 @@ you should place your code here."
   (add-hook 'sh-mode-hook (lambda () (sh-electric-here-document-mode -1)))
   ;; set how long it takes for flycheck to dissapear
   (setq flycheck-pos-tip-timeout 500)
-
   (defun my-setup-indent (n)
     ;; java/c/c++
     (setq-default c-basic-offset n)
@@ -342,6 +341,10 @@ you should place your code here."
     (setq-default haskell-indentation-layout-offset n)
     (message "Haskell indent set to 2")
     )
+  (defun my-keybindings
+    (global-set-key (kbd "M-m ar") 'align-regexp)
+    (global-set-key (kbd "M-m os") 'eshell)
+    )
   (defun my-personal-code-style ()
     (interactive)
     (message "Indentation set to 4")
@@ -352,8 +355,10 @@ you should place your code here."
     )
   ;; call code style setup
   (my-personal-code-style)
-  ;; (Alt-m os) opens shell window
-  (global-set-key (kbd "M-m os") 'eshell)
+  ;; call keybinding setup
+  (my-keybindinga)
+  ;; disable word wrap
+  (setq-default truncate-lines t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
