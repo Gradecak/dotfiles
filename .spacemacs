@@ -341,7 +341,7 @@ you should place your code here."
     (setq-default haskell-indentation-layout-offset n)
     (message "Haskell indent set to 2")
     )
-  (defun my-keybindings
+  (defun my-keybindings ()
     (global-set-key (kbd "M-m ar") 'align-regexp)
     (global-set-key (kbd "M-m os") 'eshell)
     )
@@ -356,7 +356,7 @@ you should place your code here."
   ;; call code style setup
   (my-personal-code-style)
   ;; call keybinding setup
-  (my-keybindinga)
+  (my-keybindings)
   ;; disable word wrap
   (setq-default truncate-lines t)
   )
