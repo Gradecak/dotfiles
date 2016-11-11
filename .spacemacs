@@ -359,8 +359,12 @@ you should place your code here."
   (my-keybindings)
   ;; disable word wrap
   (setq-default truncate-lines t)
+  ;; set ruler width to 80
+  (setq-default fci-rule-column 80)
+  ;; enable ruler by default
+  ;;(setq-default fci-mode t)
   )
-
+  
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
