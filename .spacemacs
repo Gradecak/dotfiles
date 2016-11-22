@@ -45,6 +45,7 @@ values."
      javascript
      html
      org
+     spacemacs-org
      (shell :variables
             shell-default-position 'bottom
             shell-default-height 40)
@@ -57,7 +58,6 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
      syntax-checking
      version-control
      osx
@@ -325,19 +325,21 @@ you should place your code here."
     (setq-default c-basic-offset n)
     ;; web development
     (setq-default python-indent-offset n)
-    (setq-default coffee-tab-width n) ; coffeescript
-    (setq-default javascript-indent-level n) ; javascript-mode
-    (setq-default js-indent-level n) ; js-mode
-    (setq-default js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
-    (setq-default web-mode-markup-indent-offset n) ; web-mode, html tag in html file
-    (setq-default web-mode-css-indent-offset n) ; web-mode, css in html file
+    (setq-default coffee-tab-width n)            ; coffeescript
+    (setq-default javascript-indent-level n)     ; javascript-mode
+    (setq-default js-indent-level n)             ; js-mode
+    (setq-default js2-basic-offset n)            ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+    (setq-default web-mode-css-indent-offset n)  ; web-mode, css in html file
     (setq-default web-mode-code-indent-offset n) ; web-mode, js code in html file
-    (setq-default css-indent-offset n) ; css-mode
+    (setq-default css-indent-offset n)           ; css-mode
+    )
+  (defun web-dev-indent (n)
+    (setq-default web-mode-markup-indent-offset n) ; web-mode, html tag in html file
     )
   ;; indentation config for haskell
   (defun haskell-indent-setup (n)
     (setq-default haskell-indent-spaces n)
-    (setq-default haskell-indentation-left-offset n)
+    ;; (setq-default haskell-indentation-left-offset n)
     (setq-default haskell-indentation-layout-offset n)
     (message "Haskell indent set to 2")
     )
@@ -349,10 +351,12 @@ you should place your code here."
     (interactive)
     (message "Indentation set to 4")
     (setq indent-tabs-mode nil) ; use space instead of tab
-    (setq tab-width 4) ; or any other preferred value
-    (my-setup-indent 4) ; indent 4 spaces width
-    (haskell-indent-setup 2) ;indent 2 spaces width
+    (setq tab-width 4)          ; or any other preferred value
+    (my-setup-indent 4)         ; indent 4 spaces width
+    (haskell-indent-setup 2)    ;indent 2 spaces width
+    (web-dev-indent 2)          ; set html indent to 2 spaces
     )
+  ; open an org file and switch to it on emacs startup
   (defun startup-org ()
     (find-file "~/Documents/Org/TODO.org")
     (switch-to-buffer "TODO.org")
@@ -361,14 +365,18 @@ you should place your code here."
   (my-personal-code-style)
   ;; call keybinding setup
   (my-keybindings)
-  (startup-org)
+  (startup-org) ; switch to org file on startup
   ;; disable word wrap
   (setq-default truncate-lines t)
   ;; set ruler width to 80
   (setq-default fci-rule-column 80)
-  ;; enable ruler by default
-  ;;(setq-default fci-mode t)
+  (setq-default fci-rule-width 1)
+  (turn-on-fci-mode)
   (mac-auto-operator-composition-mode)
+  (golden-ratio-mode)
+  ;; Make linums relative by default
+  (with-eval-after-load 'linum
+    (linum-relative-toggle))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -426,7 +434,7 @@ you should place your code here."
  '(org-agenda-files (quote ("~/Documents/Org/TODO.org")))
  '(package-selected-packages
    (quote
-    (org-projectile pcache org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot disaster company-c-headers cmake-mode clang-format sublime-themes smyx-theme material-theme flatland-theme firebelly-theme ample-zen-theme darktooth-theme solarized-theme pug-mode insert-shebang hide-comnt yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic yaml-mode fish-mode company-shell monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode engine-mode web-mode tagedit slim-mode scss-mode sass-mode less-css-mode jade-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data smeargle reveal-in-osx-finder pbcopy osx-trash osx-dictionary orgit org mwim mmm-mode markdown-toc markdown-mode magit-gitflow launchctl helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit magit-popup git-commit with-editor diff-hl company-statistics auto-yasnippet auto-dictionary ac-ispell auto-complete boogie-friends company yasnippet flycheck ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (nlinum-relative nlinum org-projectile pcache org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot disaster company-c-headers cmake-mode clang-format sublime-themes smyx-theme material-theme flatland-theme firebelly-theme ample-zen-theme darktooth-theme solarized-theme pug-mode insert-shebang hide-comnt yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic yaml-mode fish-mode company-shell monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode engine-mode web-mode tagedit slim-mode scss-mode sass-mode less-css-mode jade-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data smeargle reveal-in-osx-finder pbcopy osx-trash osx-dictionary orgit org mwim mmm-mode markdown-toc markdown-mode magit-gitflow launchctl helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit magit-popup git-commit with-editor diff-hl company-statistics auto-yasnippet auto-dictionary ac-ispell auto-complete boogie-friends company yasnippet flycheck ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
