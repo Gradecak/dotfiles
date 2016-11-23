@@ -140,7 +140,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(badwolf
+   dotspacemacs-themes '(hickey
+                         firebelly
+                         badwolf
                          smyx
                          monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -170,7 +172,7 @@ values."
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
    ;; and TAB or <C-m> and RET.
-   ;; In the terminal, these pairs are generally indistinguishable, so this only
+   ;; In the terminal, these pairsy are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
