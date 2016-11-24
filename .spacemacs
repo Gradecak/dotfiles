@@ -53,7 +53,8 @@ values."
      yaml
      python
      search-engine
-     c-c++
+     (c-c++ :variables
+     c-c++-default-mode-for-headers 'c++-mode)
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -363,11 +364,15 @@ you should place your code here."
     (find-file "~/Documents/Org/TODO.org")
     (switch-to-buffer "TODO.org")
     )
+  (defun my-hooks()
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    )
   ;; call code style setup
   (my-personal-code-style)
   ;; call keybinding setup
   (my-keybindings)
   (startup-org) ; switch to org file on startup
+  (my-hooks)
   ;; disable word wrap
   (setq-default truncate-lines t)
   ;; set ruler width to 80
