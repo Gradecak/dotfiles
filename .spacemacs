@@ -66,7 +66,7 @@ values."
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'. 
+   ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
     boogie-friends
    )
@@ -367,22 +367,14 @@ you should place your code here."
   (defun my-hooks()
     (add-hook 'before-save-hook 'delete-trailing-whitespace)
     )
-  ;; call code style setup
-  (my-personal-code-style)
-  ;; call keybinding setup
-  (my-keybindings)
-  (startup-org) ; switch to org file on startup
+  (my-personal-code-style)        ;; call code style setup
+  (my-keybindings)                ;; call keybinding setup
+  (startup-org)                   ;; switch to org file on startup
   (my-hooks)
-  ;; disable word wrap
-  (setq-default truncate-lines t)
-  ;; set ruler width to 80
-  (setq-default fci-rule-column 80)
-  (setq-default fci-rule-width 1)
-  (turn-on-fci-mode)
+  (setq-default truncate-lines t) ;; disable word wrapn
   (mac-auto-operator-composition-mode)
   (golden-ratio-mode)
-  ;; Make linums relative by default
-  (with-eval-after-load 'linum
+  (with-eval-after-load 'linum    ;; Make linums relative by default
     (linum-relative-toggle))
   )
 ;; Do not write anything past this comment. This is where Emacs will
