@@ -38,8 +38,8 @@ values."
      helm
      auto-completion
      better-defaults
-     haskell
-     imenu-list
+     (haskell :variables
+              haskell-completion-backend 'intero)
      emacs-lisp
      git
      markdown
@@ -61,7 +61,9 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      syntax-checking
-     version-control
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
      restclient
      osx
      )
@@ -127,7 +129,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -210,13 +212,13 @@ values."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize t
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
    dotspacemacs-helm-no-header nil
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
+   dotspacemacs-helm-position 'right
    ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
    ;; in all non-asynchronous sources. If set to `source', preserve individual
    ;; source settings. Else, disable fuzzy matching in all sources.
@@ -236,13 +238,13 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native t
+   dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
@@ -268,7 +270,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -299,7 +301,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -319,8 +321,6 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default flycheck-dafny-executable "/Users/maki/bin/dafny")
-  ;; set line numbers
-  (global-linum-mode);
   ;; "Neo-tree (Nerd tree) set theme"
   (setq neo-theme 'nerd)
   (add-hook 'sh-mode-hook (lambda () (sh-electric-here-document-mode -1)))
@@ -366,18 +366,18 @@ you should place your code here."
     (find-file "~/Documents/Org/TODO.org")
     (switch-to-buffer "TODO.org")
     )
-  (defun my-hooks()
-    (add-hook 'before-save-hook 'delete-trailing-whitespace)
-    )
   (my-personal-code-style)        ;; call code style setup
   (my-keybindings)                ;; call keybinding setup
   (startup-org)                   ;; switch to org file on startup
-  (my-hooks)
   (setq-default truncate-lines t) ;; disable word wrapn
   (mac-auto-operator-composition-mode)
-  (golden-ratio-mode)
-  (with-eval-after-load 'linum    ;; Make linums relative by default
-    (linum-relative-toggle))
+  (setq diff-hl-side 'left)
+  ;; (with-eval-after-load 'linum    ;; Make linums relative by default
+  ;;   (linum-relative-toggle))
+  ;; Use hlint with Intero
+  (with-eval-after-load 'intero
+    (flycheck-add-next-checker 'intero
+                               '(warning . haskell-hlint)))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
