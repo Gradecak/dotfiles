@@ -56,10 +56,6 @@ values."
      search-engine
      (c-c++ :variables
      c-c++-default-mode-for-headers 'c++-mode)
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
