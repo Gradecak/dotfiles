@@ -374,6 +374,8 @@ you should place your code here."
   (setq-default truncate-lines t) ;; disable word wrapn
   (mac-auto-operator-composition-mode)
   (setq diff-hl-side 'left)
+  (fancy-battery-mode)
+  (fci-mode)
   ;; (with-eval-after-load 'linum    ;; Make linums relative by default
   ;;   (linum-relative-toggle))
   ;; Use hlint with Intero
