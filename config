@@ -1,7 +1,3 @@
-Host banterbox-II
-    HostName 46.101.93.111
-    User maki
-    IdentityFile /Users/maki/.ssh/id_rsa
 Host cube
     HostName cube.netsoc.tcd.ie
     User maki
