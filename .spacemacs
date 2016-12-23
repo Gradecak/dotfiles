@@ -371,7 +371,7 @@ you should place your code here."
     (setq mouse-wheel-progressive-speed nil)
     )
   (my-personal-code-style)        ;; call code style setup
-  (scrolling-config)
+  ;; (scrolling-config)
   (my-keybindings)                ;; call keybinding setup
   (startup-org)                   ;; switch to org file on startup
   (setq-default truncate-lines t) ;; disable word wrapn
