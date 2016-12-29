@@ -24,8 +24,8 @@ cmd - 0x1E : kwmc window -f next
 cmd - 0x21 : kwmc window -f prev
 
 # Window Manager Move window
-cmd + alt - 0x21 :    kwmc window -s next
-cmd + alt - 0x1E :    kwmc window -s prev
+cmd + alt - 0x21 :    kwmc window -s prev
+cmd + alt - 0x1E :    kwmc window -s next
 
 # Window Manager fload current window
-alt - f : kwmc window -t focused
+alt - f [Emacs] ! : kwmc window -t focused
