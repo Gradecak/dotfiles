@@ -325,7 +325,7 @@ you should place your code here."
   ;; set how long it takes for flycheck to dissapear
   (setq powerline-default-separator 'arrow)
   (setq flycheck-pos-tip-timeout 500)
-  ;; (setq flycheck-clang-language-standard "c++11")
+  (setq flycheck-clang-language-standard "c++11")
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
   (setq flycheck-gnat-args "-L/usr/local/lib -L/usr/local/opt/openssl/lib -lndn-cxx -lChronoSync -lboost_system-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_iostreams-mt -lboost_regex-mt -lboost_program_options-mt -lboost_chrono-mt -lboost_thread-mt -lboost_log-mt -lboost_log_setup-mt -lcryptopp -lssl -lcrypto -lsqlite3 -lpthread -framework CoreFoundation -framework Security")
   (defun my-setup-indent (n)
