@@ -4,6 +4,7 @@ alias cls='clear && ls'
 alias list='~/Documents/glassrooms/glassrooms.sh list'
 alias book='~/Documents/glassrooms/glassrooms.sh book'
 alias cancel='~/Documents/glassrooms/glassrooms.sh cancel'
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs "$@"'
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
