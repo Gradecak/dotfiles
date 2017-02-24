@@ -368,9 +368,14 @@ you should place your code here."
     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
     (setq mouse-wheel-progressive-speed nil)
     )
+  (defun fyp-report-setup ()
+    (require 'ox-latex)
+    (setq org-latex-compiler "xelatex")
+    )
   (my-personal-code-style)        ;; call code style setup
   ;; (scrolling-config)
   (my-keybindings)                ;; call keybinding setup
+  (fyp-report-setup)
   (setq-default truncate-lines t) ;; disable word wrapn
   (mac-auto-operator-composition-mode)
   (setq diff-hl-side 'left)
