@@ -371,9 +371,16 @@ you should place your code here."
     )
   (defun fyp-report-setup ()
     (require 'ox-latex)
-    ;; (setq org-latex-compiler "xelatex")
     (setq org-latex-compiler "xelatex")
-
+    (add-to-list 'org-latex-classes
+                 '("fyp"
+                   "\\documentclass{report}"
+                   ("\\chapter{%s}" . "\\chapter*{%s}")
+                   ("\\section{%s}" . "\\chapter*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
     )
   (my-personal-code-style)        ;; call code style setup
   (scrolling-config)
@@ -388,7 +395,9 @@ you should place your code here."
   (with-eval-after-load 'intero
     (flycheck-add-next-checker 'intero
                                '(warning . haskell-hlint)))
+  (add-hook 'org-mode-hook 'turn-on-flyspell)
   )
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
