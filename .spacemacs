@@ -47,7 +47,7 @@ values."
      html
      org
      bibtex
-     spacemxacs-org
+     spacemacs-org
      (shell :variables
             shell-default-position 'bottom
             shell-default-height 40)
@@ -371,6 +371,8 @@ you should place your code here."
     )
   (defun fyp-report-setup ()
     (require 'ox-latex)
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines))
     (setq org-latex-compiler "xelatex")
     (add-to-list 'org-latex-classes
                  '("fyp"
@@ -381,6 +383,9 @@ you should place your code here."
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+    (setq org-ref-default-bibliography '("~/Documents/fyp/research_sources/references.bib")
+          org-ref-pdf-directory "~/Documents/fyp/research_sources/"
+          org-ref-bibliography-notes "~/Documents/fyp/research_sources/notes.org")
     )
   (my-personal-code-style)        ;; call code style setup
   (scrolling-config)
