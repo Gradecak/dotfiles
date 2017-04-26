@@ -376,6 +376,19 @@ you should place your code here."
     (require 'ox-extra)
     (ox-extras-activate '(ignore-headlines))
     (setq org-latex-compiler "xelatex")
+    ;; Use minted
+    (add-to-list 'org-latex-packages-alist '("" "minted"))
+    (setq org-latex-listings 'minted)
+    (setq org-latex-pdf-process
+          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+    ;; Sample minted options.
+    (setq org-latex-minted-options '(
+                                     ("frame" "lines")
+                                     ("fontsize" "\\scriptsize")
+                                     ("xleftmargin" "\\parindent")
+                                     ("linenos" "")
+                                     ))
     (add-to-list 'org-latex-classes
                  '("fyp"
                    "\\documentclass{report}"
