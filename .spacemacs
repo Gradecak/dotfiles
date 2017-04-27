@@ -369,9 +369,9 @@ you should place your code here."
     (setq mouse-wheel-progressive-speed nil)
     )
   (defun fyp-report-setup ()
-    ;; (with-eval-after-load 'org
-    ;;   (setq org-latex-pdf-process '("latexmk -xelatex -bibtex %f"))
-    ;; )
+    (with-eval-after-load 'org
+      (setq org-latex-pdf-process '("latexmk -xelatex -shell-escape -interaction=nonstopmode -bibtex -f %f"))
+    )
     (require 'ox-latex)
     (require 'ox-extra)
     (ox-extras-activate '(ignore-headlines))
@@ -379,9 +379,8 @@ you should place your code here."
     ;; Use minted
     (add-to-list 'org-latex-packages-alist '("" "minted"))
     (setq org-latex-listings 'minted)
-    (setq org-latex-pdf-process
-          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
+    ;; (setq org-latex-pdf-process
+    ;;       '("xelatex -bibtex -shell-escape -interaction nonstopmode -output-directory %o %f"))
     ;; Sample minted options.
     (setq org-latex-minted-options '(
                                      ("frame" "lines")
