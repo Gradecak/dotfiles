@@ -1,12 +1,12 @@
 alias ls='ls -G'
-alias sub='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias cls='clear && ls'
-alias list='~/Documents/glassrooms/glassrooms.sh list'
-alias book='~/Documents/glassrooms/glassrooms.sh book'
-alias cancel='~/Documents/glassrooms/glassrooms.sh cancel'
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs "$@"'
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.cabal/bin
 export EDITOR='vim'
+export GOPATH=$HOME/Go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
