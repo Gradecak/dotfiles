@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PAHT
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/maki/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -68,7 +68,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker-compose docker-machine kubectl helm)
+plugins=(git docker-compose docker-machine helm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,3 +102,30 @@ source $ZSH/oh-my-zsh.sh
 # if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
 #     tmux attach -t default || tmux new -s default
 # fi
+
+vterm_printf(){
+    if [ -n "$TMUX" ]; then
+        # Tell tmux to pass the escape sequences through
+        # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+venv () {
+    PROJECT=${PWD##*/}
+    source "$HOME/.venvs/$PROJECT/bin/activate"
+}
+
+#aliases
+alias dc=docker-compose
+alias app="docker-compose run --rm app"
+
+gcurl () {
+    curl -s -H "Authorization: Bearer $(gcloud auth print-identity-token)" $@
+}
+

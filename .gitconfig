@@ -5,3 +5,6 @@
 	default = simple
 [credential]
 	helper = osxkeychain
+
+[core]
+  editor = emacs -nw
