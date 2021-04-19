@@ -129,3 +129,11 @@ gcurl () {
     curl -s -H "Authorization: Bearer $(gcloud auth print-identity-token)" $@
 }
 
+workon () {
+    cd "$HOME/Documents/$1"
+}
+
+ghttp() {
+    https $@ "Authorization:Bearer $(gcloud auth print-identity-token)"
+}
+
