@@ -1,10 +1,19 @@
 [user]
-	name = Marijan Gradecak
-	email = gradecam@tcd.ie
-[push]
-	default = simple
-[credential]
-	helper = osxkeychain
+name = Marijan Gradecak
+email = gradecam@tcd.ie
 
-[core]
-  editor = emacs -nw
+[alias]
+preview = push origin HEAD:preview --force-with-lease
+up = "!git fetch -p; git merge --ff-only @{u}"
+branch-ls-merged = !git branch --merged | egrep  -v '(^\\*|master)'
+branch-cleanup = !git branch-ls-merged | xargs -n 1 git branch -d
+lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg = !"git lg1"
+
+[rebase]
+autosquash = true
+missingcommitscheck = error
+
+[push]
+default = current
