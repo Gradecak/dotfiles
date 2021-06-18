@@ -17,3 +17,6 @@ missingcommitscheck = error
 
 [push]
 default = current
+
+[core]
+excludesfile = ~/.gitignore
