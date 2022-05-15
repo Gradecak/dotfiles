@@ -1,9 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PAHT
-
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -102,22 +98,9 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # start tmux automatically
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#     tmux attach -t default || tmux new -s default
-# fi
-
-vterm_printf(){
-    if [ -n "$TMUX" ]; then
-        # Tell tmux to pass the escape sequences through
-        # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
+if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ "$TERM" != "eterm-color" ]; then
+    tmux attach -t default || tmux new -s default
+fi
 
 venv () {
     PROJECT=${PWD##*/}
@@ -127,16 +110,17 @@ venv () {
 #aliases
 alias dc=docker-compose
 alias app="docker-compose run --rm app"
+alias ec="emacsclient -c -n -a ''"
+alias et="emacsclient -t -a ''"
 
-gcurl () {
-    curl -s -H "Authorization: Bearer $(gcloud auth print-identity-token)" $@
-}
 
-workon () {
-    cd "$HOME/Documents/$1"
-}
+workon () { cd "$HOME/Documents/$1" }
+compctl -W $HOME/Documents/ -M 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}' -/ workon
 
 ghttp() {
     https $@ "Authorization:Bearer $(gcloud auth print-identity-token)"
 }
 
+gcurl () {
+    curl -s -H "Authorization: Bearer $(gcloud auth print-identity-token)" $@
+}
