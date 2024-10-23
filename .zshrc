@@ -38,7 +38,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -70,6 +70,8 @@ ZSH_THEME="robbyrussell"
 plugins=(git docker-compose docker-machine helm)
 
 source $ZSH/oh-my-zsh.sh
+source /etc/profile.d/google-cloud-cli.sh
+
 
 # User configuration
 
@@ -98,27 +100,67 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # start tmux automatically
-if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ "$TERM" != "eterm-color" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ "$TERM" != "eterm-color" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
 
 venv () {
     PROJECT=${PWD##*/}
     source "$HOME/.venvs/$PROJECT/bin/activate"
 }
 
+
+vterm_printf(){
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+autoload -U add-zsh-hook
+preexec () {print -Pn "\e]0;($2) $(basename $(pwd))\a"}
+precmd () {print -Pn "\e]0;$(basename $(pwd))\a"}
+
+# Make vterms current directory be synced up with emacs' current directory
+vterm_prompt_end() {
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
+}
+setopt PROMPT_SUBST
+PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+
+vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+        shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+}
+
+
+ee() {
+    vterm_cmd find-file-other-window "$(realpath "${@:-.}")"
+}
+
 #aliases
-alias dc=docker-compose
-alias app="docker-compose run --rm app"
+alias dc="docker compose"
+alias app="docker compose run -l traefik.enable='false' --rm app"
 alias ec="emacsclient -c -n -a ''"
 alias et="emacsclient -t -a ''"
+alias open="xdg-open"
 
 
+root () { cd $(git rev-parse --show-toplevel)}
 workon () { cd "$HOME/Documents/$1" }
 compctl -W $HOME/Documents/ -M 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}' -/ workon
 
 ghttp() {
-    https $@ "Authorization:Bearer $(gcloud auth print-identity-token)"
+    https $@ "Authorization: Bearer $(gcloud auth print-identity-token)"
 }
 
 gcurl () {
