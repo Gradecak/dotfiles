@@ -211,7 +211,7 @@ bindsym $mod+r mode "resize"
 client.focused #859900 #859900 #fdf6e3 #859900
 
 #wallpaper
-exec --no-startup-id feh --bg-scale --no-xinerama /home/maki/Pictures/oeyawcb9pqc91.png
+exec --no-startup-id feh --bg-scale --no-xinerama /home/maki/Photos/wallpaper.png
 
 #Better trackpad movements
 exec --no-startup-id xinput set-prop "ELAN0672:00 04F3:3187 Touchpad" "libinput Click Method Enabled" 0 1
@@ -239,7 +239,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 #add support for transparency
-#exec --no-startup-id picom -CGb
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 
 # auto lock the screen
 exec --no-startup-id xautolock -time 60 -locker "systemctl suspend"
